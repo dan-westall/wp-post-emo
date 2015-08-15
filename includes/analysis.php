@@ -69,6 +69,16 @@ class WP_Post_Emo_Analysis {
 			$number = 5;
 		}
 
+		if ($number < 4) {
+			$number = floor($number);
+		}
+		else if ($number > 6) {
+			$number = ceil($number);
+		} 
+		else {
+			$number = round($number);
+		}
+		
 		return round($number);
 	}
 
