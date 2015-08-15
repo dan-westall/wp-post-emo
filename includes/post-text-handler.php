@@ -52,7 +52,7 @@ class WP_Post_Emo_Post_Text_Handler {
             //text
             $content = strip_tags( $post->post_content );
 
-
+            //your class call here
 
 
         } catch (Exception $e){
