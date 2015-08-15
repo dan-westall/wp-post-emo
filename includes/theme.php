@@ -17,10 +17,25 @@ class WP_Post_Emo_Theme {
 
         $this->plugin = $plugin;
 
+
         add_filter( 'the_content', [ $this, 'display_midi'], 10 );
 
 
+        add_action( 'wp_enqueue_scripts', [ $this,   'register_scripts'] );
+
+
     }
+
+
+        public function register_scripts(){
+
+
+            wp_enqueue_script( 'WP-Post-Emo-midi', 'http://www.midijs.net/lib/midi.js', array( 'jquery' ), date('U') );
+
+        }
+
+
+
 
     public function display_midi ( $content ) {
 
@@ -45,6 +60,12 @@ class WP_Post_Emo_Theme {
                 '<a href="%s" style="margin-top: 50px;">%s</a>',
                 $attachment->guid,
                 __('Download the post sound', 'wp-post-emo')
+            );
+
+            $content .= sprintf(
+                '<br /><a href="javascript:void(0);" onClick="MIDIjs.play(\'%s\');" style="margin-top: 50px;">%s</a>',
+                $attachment->guid,
+                __('Play the post sound', 'wp-post-emo')
             );
 
         }
