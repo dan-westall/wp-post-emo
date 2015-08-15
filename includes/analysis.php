@@ -1,11 +1,23 @@
 <?php
 
 
+
 class WP_Post_Emo_Analysis {
+
+
 
 	/* 	Removes empty items from array and reassign keys.
 		Input: (array)
 	    Output: (array) */
+
+	/**
+	 * WP_Post_Emo_Analysis constructor.
+	 */
+	public function __construct( WP_Post_Emo_Plugin $plugin ) {
+
+		$this->plugin = $plugin;
+
+	}
 
 	private function cleanArray($array) {
 		return array_values(array_filter($array));
@@ -35,6 +47,19 @@ class WP_Post_Emo_Analysis {
 	    Output: json string (string) */
 
 	private function getSentimentInfo($text) {
+
+		$t = $this->plugin->includes_path .'vendor/autoload.php';
+
+		if( file_exists( $this->plugin->includes_path .'vendor/autoload.php' )) {
+
+			require $this->plugin->includes_path .'vendor/autoload.php';
+
+		} else {
+
+			throw new Exception('Please run composer');
+
+		}
+
 
 		try {
 			$client = new GuzzleHttp\Client();
@@ -99,7 +124,9 @@ class WP_Post_Emo_Analysis {
 
 			array_push($result, [$number, $length]);
 		}
-		print_r($result);
+
+
+		return $result;
 	}
 
 

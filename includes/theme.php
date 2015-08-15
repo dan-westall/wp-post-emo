@@ -39,5 +39,5 @@ class WP_Post_Emo_Theme {
         }
 
     }
-    
+
 }

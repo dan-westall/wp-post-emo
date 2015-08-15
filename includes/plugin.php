@@ -28,7 +28,7 @@ class WP_Post_Emo_Plugin {
         // Instances.
         $this->handler  = new WP_Post_Emo_Post_Text_Handler( $this );
         $this->process  = new WP_Post_Emo_Process_Text( $this );
-        $this->mini     = new WP_Post_Emo_Mini_Handler( $this );
+        $this->midi     = new WP_Post_Emo_Mini_Handler( $this );
         $this->theme     = new WP_Post_Emo_Theme( $this );
 
         $this->music  = new WP_Post_Emo_Music( $this );

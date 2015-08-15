@@ -1,6 +1,6 @@
 <?php
 
-require('vendor/midi/classes/midi.class.php');
+
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
@@ -8,6 +8,8 @@ ini_set('display_errors', 'On');
 $demo = [[8, 85],[8, 71], [2, 162], [9, 133], [8, 215], [1, 157], [2, 20], [8, 192], [9, 269], [2, 22], [9, 279], [8, 248], [8, 86], [2, 11], [2, 38], [2, 135], [2, 168], [2, 42], [2, 11], [8, 69], [8, 140]];
 
 class WP_Post_Emo_Music {
+
+
 
 	private $noteLength = 6;
 	private $notes = [
@@ -33,9 +35,19 @@ class WP_Post_Emo_Music {
 				 END Off ch=2 n=86 v=31"	
 	];
 
+	/**
+	 * WP_Post_Emo_Music constructor.
+	 */
+	public function __construct( WP_Post_Emo_Plugin $plugin ) {
+
+        $this->plugin = $plugin;
+
+	}
+
 
 	public function generateSong($txt) {
 
+		require $this->plugin->includes_path.  'libraries/midi/classes/midi.class.php';
 
 		$visible = true;
 		$autostart = true;
@@ -46,13 +58,15 @@ class WP_Post_Emo_Music {
 
 		$save_dir = $wp_upload_dir['path'] . '/';
 		srand((double)microtime()*1000000);
-		$file = $save_dir.rand().'.mid';
+
+		$file_name = rand();
+		$file = $save_dir.$file_name.'.mid';
 
 		$midi = new Midi();
 		$midi->importTxt($txt);
 		$midi->saveMidFile($file, 0666);
 		
-		return $file;
+		return $file_name . '.mid';
 	}
 
 	private function generateMIDItxt($input) {
@@ -108,7 +122,7 @@ class WP_Post_Emo_Music {
 		$MIDItxt = self::generateMIDItxt($input);
 		echo nl2br($MIDItxt);
 
-		self::generateSong($MIDItxt);
+		return self::generateSong($MIDItxt);
 	}
 
 }
