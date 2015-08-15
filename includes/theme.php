@@ -22,21 +22,34 @@ class WP_Post_Emo_Theme {
 
     }
 
-    public function display_midi () {
+    public function display_midi ( $content ) {
 
         global $post;
+
+        if( $post->post_type != 'post' ) {
+
+            return $content;
+
+        }
 
         $mini_attachement_id = $this->plugin->midi->get_midi( $post->ID );
 
         if( $this->plugin->midi->has_midi($post->ID) ) {
 
-            return sprintf(
+//            $attachment = get_attached_media( $mini_attachement_id );
+
+            $attachment = get_post ( $mini_attachement_id);
+
+
+            $content .= sprintf(
                 '<a href="%s" style="margin-top: 50px;">%s</a>',
-                get_permalink( $mini_attachement_id ),
+                $attachment->guid,
                 __('Download the post sound', 'wp-post-emo')
             );
 
         }
+
+        return $content;
 
     }
 

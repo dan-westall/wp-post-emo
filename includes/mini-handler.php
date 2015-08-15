@@ -46,6 +46,8 @@ class WP_Post_Emo_Mini_Handler {
 
         wp_update_attachment_metadata( $attach_id, $attach_data );
 
+        update_post_meta( $post_id, 'post_soundtrack', $attach_id);
+
     }
 
     public function has_midi( $post_id ) {
@@ -56,7 +58,7 @@ class WP_Post_Emo_Mini_Handler {
 
     public function get_midi ( $post_id ) {
 
-
+        return get_post_meta( $post_id, 'post_soundtrack', true );
 
     }
 
