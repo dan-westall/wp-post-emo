@@ -48,8 +48,17 @@ class WP_Post_Emo_Mini_Handler {
 
     }
 
+    public function has_midi( $post_id ) {
+
+        return true;
+
+    }
+
+    public function get_midi ( $post_id ) {
 
 
+
+    }
 
 }
 
