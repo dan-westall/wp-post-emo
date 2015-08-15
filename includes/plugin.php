@@ -26,7 +26,9 @@ class WP_Post_Emo_Plugin {
         $this->includes_path = $this->plugin_path . trailingslashit('includes');
 
         // Instances.
-        $this->handler = new WP_Post_Emo_Post_Text_Handler( $this );
+        $this->handler  = new WP_Post_Emo_Post_Text_Handler( $this );
+        $this->process  = new WP_Post_Emo_Process_Text( $this );
+        $this->mini     = new WP_Post_Emo_Mini_Handler( $this );
 
 
     }

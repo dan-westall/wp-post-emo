@@ -1,14 +1,14 @@
 var wpPostEmo = {
 
     config: {
-        wrapper: '.generate-match-container',
+        wrapper: '.analyze-post-container',
         testNotifySpinner: null,
         testNotifyResponse: null
     },
 
     init : function () {
         self.testNotifySpinner  = jQuery( wpPostEmo.config.wrapper + ' button .spinner' );
-        self.testNotifyResponse = jQuery( '#generate-match-response' );
+        self.testNotifyResponse = jQuery( '#generate-analyze-response' );
         this._bindEvents();
 
     },
@@ -30,20 +30,15 @@ var wpPostEmo = {
             type: 'POST',
             cache: false,
             data: {
-                action: 'ajax_generate_tournament_matches',
-                security: jQuery( wpPostEmo.config.wrapper ).find('hidden').val(),
-                group_matches: jQuery( wpPostEmo.config.wrapper ).find('[type="checkbox"]:checked').val(),
-                tournament_id: post_id
+                action: 'process_text',
+                security: jQuery( wpPostEmo.config.wrapper ).find('[type="hidden"]').val(),
+                post_id: jQuery( '#post_ID' ).val()
             },
             dataType: 'JSON',
             async: true
         });
 
         xhr.done( function( r ) {
-
-            //magic line
-            window.location.reload();
-
             self.testNotifyResponse.html( '<span style="color: green">' + r.data.message + '</span>' );
             self.testNotifySpinner.hide();
         } );

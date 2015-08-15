@@ -29,14 +29,14 @@ class WP_Post_Emo_Post_Text_Handler {
     public function register_scripts(){
 
         wp_register_script(
-            'WP-Post-Emo', plugins_url( 'assets/js/wp_post_emo.js', $this->plugin->plugin_path  ), array( 'jquery' ), $this->plugin->version
+            'WP-Post-Emo', ( $this->plugin->plugin_url. 'assets/js/wp_post_emo.js'   ), array( 'jquery' ), date('U')
         );
 
     }
 
     public function process_text() {
 
-        check_ajax_referer( 'process-text' );
+        //check_ajax_referer( 'process_text', 'security' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
 
@@ -49,7 +49,8 @@ class WP_Post_Emo_Post_Text_Handler {
 
         try {
 
-            $content = $post->post_content;
+            //text
+            $content = strip_tags( $post->post_content );
 
 
 
@@ -61,7 +62,7 @@ class WP_Post_Emo_Post_Text_Handler {
 
         }
 
-        wp_send_json_success();
+        wp_send_json_success('Bibgo');
 
     }
 
@@ -89,7 +90,7 @@ class WP_Post_Emo_Post_Text_Handler {
 
     public function text_handler_post_submit( $post ) {
 
-        wp_enqueue_script('WP-');
+        wp_enqueue_script('WP-Post-Emo');
 
         require_once $this->plugin->plugin_path . '/views/post-analyze-meta.php';
 
