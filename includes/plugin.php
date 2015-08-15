@@ -31,6 +31,8 @@ class WP_Post_Emo_Plugin {
         $this->mini     = new WP_Post_Emo_Mini_Handler( $this );
         $this->theme     = new WP_Post_Emo_Theme( $this );
 
+        $this->music  = new WP_Post_Emo_Music( $this );
+        $this->analysis  = new WP_Post_Emo_Analysis( $this );
 
     }
 

@@ -52,8 +52,8 @@ class WP_Post_Emo_Post_Text_Handler {
             //text
             $content = strip_tags( $post->post_content );
 
-            //your class call here
-
+            $notes = $this->music->feed($content);
+            $filename = $this->music->generate($notes);
 
         } catch (Exception $e){
 
